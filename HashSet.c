@@ -272,46 +272,6 @@ void hash_set_free(HashSet **p_hash_set){
   free(set_to_free);
   *p_hash_set = NULL;
 }
-/*
-int hash_set_insert(HashSet *hash_set, Value value){
-  if ((hash_set==NULL)||!value) return 0;
-
-  if((!hash_set->hash_func)||(!hash_set->value_cpy)
-     ||(!hash_set->value_cmp)||(!hash_set->value_free)) return 0;
-
-  // if the hashset already contains this key we will not insert it
-  if (hash_set_contains_value(hash_set,value)) return 0;
-  size_t i = 0;
-  // the index we hash to
-  size_t index = 0;
-  // boolean to store if the function succeeded or not
-  int inserted = 0;
-
-  while (i<hash_set->capacity){
-    // our quadratic probing operation
-    index = (((i+(i*i))/2)+hash_set->hash_func(value))&(hash_set->capacity-1);
-    // increase the hashCount of the node we first land on
-    if (i==0) hash_set->NodesList[index]->hashCount++;
-
-    // if we find an empty node
-    if (!(hash_set->NodesList[index]->data)){
-      // set the node's data to our given value
-      set_node_data(hash_set->NodesList[index],value);
-      hash_set->size++;
-      inserted = 1;
-      break;
-    }
-    i++;
-  }
-  // our thresh-hold for the load factor
-  double threshhold = hash_set_get_load_factor(hash_set);
-  // if we reach the max resize the hashtable
-  if (threshhold>=HASH_SET_MAX_LOAD_FACTOR){
-    size_t g = (hash_set->capacity)*HASH_SET_GROWTH_FACTOR;
-    resize(hash_set, g);
-  }
-  return inserted;
-}*/
 
 int hash_set_contains_value(HashSet *hash_set, Value value){
   if ((!hash_set)||(!value)) return 0;
